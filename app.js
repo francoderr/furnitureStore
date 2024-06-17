@@ -90,6 +90,10 @@ app.get("/products", isAdmin, (req, res) => {
   res.render("products", { user: req.user });
 });
 
+app.get("/admin", isAdmin, (req, res) => {
+  res.render("admin", { user: req.user });
+});
+
 app.get("/myCart", isAuthenticated, (req, res) => {
   res.render("myCart", { user: req.user });
 });
