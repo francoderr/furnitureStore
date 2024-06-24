@@ -250,6 +250,21 @@
         background-color: #e5533c;
       }
 
+      .create-product-button {
+        background-color: var(--theme-color);
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: 4px;
+        transition: background-color 0.3s ease;
+      }
+
+      .create-product-button:hover {
+        background-color: #00C9B6;
+      }
+
       .delete-button {
         background-color: red;
         border: none;
@@ -284,7 +299,7 @@
       <main>
         <div class="mainHeader">
           <h2>Products</h2>
-          <a href="/createProd"><button>Create Product</button></a>
+          <a href="/createProd" ><button class="create-product-button">Create Product</button></a>
         </div>
         <div class="prods">
           <!-- Products will be displayed here -->
