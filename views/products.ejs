@@ -249,6 +249,20 @@
       .logout-button:hover {
         background-color: #e5533c;
       }
+
+      .delete-button {
+        background-color: red;
+        border: none;
+        color: white;
+        padding: 10px 15px;
+        cursor: pointer;
+        margin-left: 10px;
+        border-radius: 4px;
+      }
+
+      .delete-button:hover {
+        background-color: darkred;
+      }
     </style>
   </head>
   <body>
@@ -288,6 +302,7 @@
         <textarea id="productDescription" placeholder="Description"></textarea>
         <input type="number" id="productPrice" placeholder="Price" />
         <button id="saveProduct">Save</button>
+        <button id="deleteProduct" class="delete-button">Delete</button>
       </div>
     </div>
 
@@ -355,7 +370,8 @@
         document.getElementById("editModal").style.display = "block";
         document.getElementById("productId").value = product._id; // Use _id if MongoDB
         document.getElementById("productTitle").value = product.title;
-        document.getElementById("productDescription").value = product.description;
+        document.getElementById("productDescription").value =
+          product.description;
         document.getElementById("productPrice").value = product.price;
       }
 
@@ -394,9 +410,38 @@
           });
       }
 
-      document.querySelector(".close").addEventListener("click", closeModal);
-      document.getElementById("saveProduct").addEventListener("click", saveProduct);
+      function deleteProduct() {
+        const productId = document.getElementById("productId").value;
 
+        fetch(`http://localhost:3000/deleteProduct`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ productId }),
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            if (data.Status === "Success") {
+              fetchProducts();
+              closeModal();
+            } else {
+              console.error("Failed to delete product");
+            }
+          })
+          .catch((error) => {
+            console.error("Error deleting product:", error);
+          });
+      }
+
+      document.querySelector(".close").addEventListener("click", closeModal);
+      document
+        .getElementById("saveProduct")
+        .addEventListener("click", saveProduct);
+
+      document
+        .getElementById("deleteProduct")
+        .addEventListener("click", deleteProduct);
       // Fetch products when the page loads
       fetchProducts();
     </script>
