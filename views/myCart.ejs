@@ -215,7 +215,7 @@
         <div class="cart-summary">
           <div class="cart-details">
             <p id="total-items">Total Items: 0</p>
-            <p id="total-price">Total Price: $0</p>
+            <p id="total-price">Total Price: ksh 0</p>
           </div>
           <button class="order-btn" onclick="placeOrder()">Order</button>
         </div>
@@ -279,7 +279,8 @@
 
           if (data.Status === "Success") {
             const totalPriceElement = document.getElementById("total-price");
-            const totalPrice = totalPriceElement.textContent.split("$")[1];
+            const totalPrice =
+              totalPriceElement.textContent.match(/Kshs\. (\d+)/)[1];
             window.location.href = `/checkout?totalPrice=${totalPrice}`;
           } else {
             console.error("Failed to place order");
